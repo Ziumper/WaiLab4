@@ -22,7 +22,7 @@
         
         <script>
             function loadBooks() {
-                $.getJSON('resources/books/list', function (data) {
+                $.getJSON('http://localhost:8080/Rest-1.0-SNAPSHOT/resources/books/list', function (data) {
                     var table = $('<table>').appendTo($('#books'));
                     $.each(data, function (i, book) {
                         var row = $('<tr>').appendTo(table);
@@ -30,7 +30,7 @@
                         $('<td>').text(book.author).appendTo(row);
                         $('<td>').text(book.title).appendTo(row);
 
-                        var img_uri = "cover?author=" + book.author + "&title=" + book.title;
+                        var img_uri = "http://localhost:8080/Rest-1.0-SNAPSHOT/cover?author=" + book.author + "&title=" + book.title;
                         var img_td = $('<td>').appendTo(row);
                         $('<img>').attr('src', encodeURI(img_uri)).appendTo(img_td);
 
@@ -43,7 +43,7 @@
                         mark_form.submit(function (event) {
                             event.preventDefault();
                             var marked_book = mark_form.find("input[name='marked_book']").val();
-                            $.get('resources/books/mark', {'marked_book_id': marked_book}, function (data) {
+                            $.get('http://localhost:8080/Rest-1.0-SNAPSHOT/resources/books/mark', {'marked_book_id': marked_book}, function (data) {
                                 loadMarkedBooks();
                             });
                         });
@@ -57,7 +57,7 @@
             }
 
             function loadMarkedBooks() {
-                $.getJSON('resources/books/marked/list', function (data) {
+                $.getJSON('http://localhost:8080/Rest-1.0-SNAPSHOT/resources/books/marked/list', function (data) {
                     $('#marked_books').html('');
                     var table = $('<table>').appendTo($('#marked_books'));
                     $.each(data, function (i, book) {

@@ -6,7 +6,7 @@
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
     </head>
     <body>
-        <form action="resources/books/save/form" method="post">
+        <form  id="f1" action="http://localhost:8080/Rest-1.0-SNAPSHOT/resources/books/save/form" method="post">
             <input type="hidden" name="command" value="save_book"/>
             <table>
                 <tr>
@@ -27,6 +27,34 @@
         <a href="list_books.html"><button>Back</button></a>
 
         <script>
+            
+            function setListener() {
+                $('#f1').submit(function(e)
+                {
+                    e.preventDefault();
+                    var json = {
+                        id: $('#book_id').val(),
+                        author: $('#book_author').val(),
+                        title: $('#book_title').val()
+                    }
+
+                    
+
+                    $.ajax({
+                        type: "POST",
+                        url: "http://localhost:8080/Rest-1.0-SNAPSHOT/resources/books/save/form",
+                        data: json,
+                        success: function(data)
+                        {
+                            window.location = "/list_books.html"
+                        },
+                        error: function(data) {
+                            window.location = "/list_books.html"
+                        }
+                    });
+                });
+            }
+
             function get(name) {
                 if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
                     return decodeURIComponent(name[1]);
@@ -35,7 +63,7 @@
             function update() {
                 var book_id = get('book_id');
                 if (book_id != null) {
-                    $.getJSON('resources/books/find', {'book_id': get('book_id')}, function (data) {
+                    $.getJSON('http://localhost:8080/Rest-1.0-SNAPSHOT/resources/books/find', {'book_id': get('book_id')}, function (data) {
                         $('#book_id').val(data.id);
                         $('#book_author').val(data.author);
                         $('#book_title').val(data.title);
@@ -45,6 +73,8 @@
             
             $(document).ready(function () {
                 update();
+                setListener();
+
             });
         </script>
     </body>

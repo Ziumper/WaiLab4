@@ -1,5 +1,6 @@
 services:
   frontend:
+    container_name: httpd_191259
     image: httpd:2.4
     ports:
       - 80:80
@@ -7,6 +8,7 @@ services:
       - ./frontend/public_html:/usr/local/apache2/htdocs
   
   backend:
+    container_name: backend_191259
     build: ./backend/
     ports:
       - 8080:8080
@@ -16,6 +18,7 @@ services:
       - "database:db"
 
   database:
+    container_name: db_191259
     build: ./db/
     networks:
       - custom_backend_network
