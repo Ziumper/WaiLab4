@@ -157,7 +157,7 @@ public class BookResource {
     private BooksContext getBookContext() {
         BooksContext bookContext = (BooksContext) context.getAttribute(BOOK_CONTEXT);
         if (bookContext == null) {
-            bookContext = new BookResourceClient("database");
+            bookContext = new BookResourceClient("http://db:8080/Database-1.0-SNAPSHOT/");
             context.setAttribute(BOOK_CONTEXT, bookContext);
         }
         return bookContext;

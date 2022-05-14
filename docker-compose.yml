@@ -5,3 +5,20 @@ services:
       - 80:80
     volumes:
       - ./frontend/public_html:/usr/local/apache2/htdocs
+  
+  backend:
+    build: ./backend/
+    ports:
+      - 8080:8080
+    networks:
+      - custom_backend_network
+    links:
+      - "database:db"
+
+  database:
+    build: ./db/
+    networks:
+      - custom_backend_network
+
+networks:
+  custom_backend_network:
