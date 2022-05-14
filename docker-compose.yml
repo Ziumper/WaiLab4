@@ -1,0 +1,7 @@
+services:
+  frontend:
+    image: httpd:2.4
+    ports:
+      - 80:80
+    volumes:
+      - ./frontend/public_html:/usr/local/apache2/htdocs
